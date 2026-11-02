@@ -1,0 +1,39 @@
+#mobile-reader-sidebar-toggle {
+    position: relative; z-index: 1;
+    -webkit-app-region: no-drag; align-self: center; flex: 0 0 auto;
+    width: var(--reader-button-size, 32px); height: 28px; margin: 0 4px;
+    padding: 0; border: 0; border-radius: 4px; background: transparent;
+    color: var(--vscode-titleBar-activeForeground); cursor: pointer;
+}
+#mobile-reader-sidebar-toggle:hover { background: var(--vscode-toolbar-hoverBackground); }
+#mobile-reader-sidebar-toggle:focus-visible { outline: 1px solid var(--vscode-focusBorder); }
+#mobile-reader-sidebar-toggle[hidden], #mobile-reader-sidebar-backdrop[hidden], #mobile-reader-picker-backdrop[hidden],
+#mobile-reader-cancel[hidden], .mobile-reader-action-sash[hidden] { display: none !important; }
+#mobile-reader-sidebar-backdrop { position: fixed; z-index: 1000; padding: 0; border: 0; background: transparent; }
+.mobile-reader-compact .part.titlebar .titlebar-left { flex-shrink: 0; }
+.mobile-reader-compact .part.editor .editor-group-container > .title .editor-actions {
+    position: relative; flex: 0 0 auto; box-sizing: content-box;
+    width: var(--reader-actions-width, 64px) !important; padding-left: 8px !important;
+}
+.mobile-reader-compact .part.editor .editor-actions > .monaco-toolbar {
+    width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; touch-action: none;
+}
+.mobile-reader-compact .part.editor .editor-actions > .monaco-toolbar::-webkit-scrollbar { display: none; }
+.mobile-reader-compact .part.editor .editor-actions .monaco-action-bar { width: max-content; }
+.mobile-reader-compact .part.editor .editor-actions .actions-container { display: flex; flex-wrap: nowrap; width: max-content; }
+.mobile-reader-compact .part.editor .editor-actions .action-item { flex: 0 0 var(--reader-button-size); width: var(--reader-button-size); }
+.mobile-reader-compact .part.editor .editor-actions .action-item > .action-label { width: var(--reader-button-size); box-sizing: border-box; }
+.mobile-reader-action-sash { position: absolute; left: 0; top: 0; bottom: 0; width: 8px; cursor: col-resize; touch-action: none; z-index: 2; }
+.mobile-reader-action-sash::after { content: ''; position: absolute; left: 3px; top: 25%; height: 50%; width: 2px; background: var(--vscode-widget-border, #667); }
+.mobile-reader-action-sash:hover::after, .mobile-reader-action-sash:focus::after { background: var(--vscode-focusBorder); }
+.mobile-reader-reading textarea.inputarea { pointer-events: none; }
+.mobile-reader-compact .monaco-editor .hoverHighlight {
+    background-color: rgb(from var(--vscode-editor-hoverHighlightBackground) r g b / var(--reader-hover-opacity, .32)) !important;
+}
+#mobile-reader-cancel {
+    position: absolute; top: calc(100% + 4px); right: 4px; z-index: 2;
+    min-height: var(--reader-button-size, 32px); padding: 8px 12px;
+    color: var(--vscode-editor-foreground); background: var(--vscode-editorWidget-background);
+    border: 1px solid var(--vscode-widget-border, #667); border-radius: 4px; cursor: pointer;
+}
+#mobile-reader-picker-backdrop { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 2549; border: 0; padding: 0; background: transparent; cursor: default; touch-action: none; }

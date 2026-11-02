@@ -1,0 +1,57 @@
+{
+  "name": "mobile-reader", "displayName": "Mobile Reader", "publisher": "local",
+  "version": "0.1.0", "engines": { "vscode": "^1.90.0" },
+  "main": "./extension.js", "activationEvents": ["onStartupFinished"],
+  "description": "Touch-accessible symbol documentation and navigation using the installed language provider.",
+  "contributes": {
+    "commands": [
+      {"command":"mobileReader.toggleCompact","title":"Reader: Toggle compact layout for this window"},
+      {"command":"mobileReader.toggleEditing","title":"Reader: Enter or finish editing","icon":"$(edit)"},
+      {"command":"mobileReader.finishEditing","title":"Reader: Finish editing","icon":"$(check)"},
+      {"command":"mobileReader.focus","title":"Reader: Reading layout","icon":"$(book)"},
+      {"command":"mobileReader.files","title":"Reader: Files","icon":"$(files)"},
+      {"command":"mobileReader.hover","title":"Reader: Show symbol documentation","icon":"$(info)"},
+      {"command":"mobileReader.definition","title":"Reader: Go to definition","icon":"$(go-to-file)"},
+      {"command":"mobileReader.symbols","title":"Reader: Choose symbol","icon":"$(symbol-method)"},
+      {"command":"mobileReader.back","title":"Reader: Back","icon":"$(arrow-left)"}
+    ],
+    "markdown.previewStyles": ["./reading.css"],
+    "markdown.previewScripts": ["./preview.js"],
+    "markdown.markdownItPlugins": true,
+    "configuration": {
+      "title": "Mobile Reader",
+      "properties": {
+        "mobileReader.mode": {"type":"string","enum":["auto","on","off"],"default":"auto","scope":"window","description":"Use the compact reader automatically on narrow touch devices, always, or never. Applies to this browser window without changing desktop editor settings."},
+        "mobileReader.maxWidth": {"type":"number","default":820,"minimum":320,"maximum":1400,"description":"Maximum screen and viewport width in CSS pixels for automatic compact controls and Markdown reading styles."},
+        "mobileReader.readOnlyByDefault": {"type":"boolean","default":true,"description":"Open source code for reading on compact devices. Use Edit or double tap to enable typing."},
+        "mobileReader.doubleTapToEdit": {"type":"boolean","default":true,"description":"Double tap source text to enter editing. The Edit button remains available when disabled."},
+        "mobileReader.tapToHover": {"type":"boolean","default":true,"description":"A single tap on a word shows the language provider's symbol documentation in reading mode."},
+        "mobileReader.hover.highlightOpacity": {"type":"number","default":0.32,"minimum":0,"maximum":1,"description":"Opacity of the hovered source symbol highlight in compact mode, retaining the current theme's hover color. Increase slightly for a clearer touch target; desktop theme colors stay unchanged."},
+        "mobileReader.compactGutter": {"type":"boolean","default":true,"description":"Use a narrow line-number gutter; hide glyph/folding columns and the minimap in the compact reader."},
+        "mobileReader.autoHideSidebar": {"type":"boolean","default":true,"description":"Close sidebars after opening or switching a file on compact devices."},
+        "mobileReader.dismissPickerOnOutsideTap": {"type":"boolean","default":true,"description":"Cancel Quick Input/file pickers when tapping outside. Trust and confirmation dialogs are not affected."},
+        "mobileReader.markdown.enabled": {"type":"boolean","default":true,"description":"Use the configured Markdown typography in compact mode. Desktop preview retains its normal style."},
+        "mobileReader.markdown.fontSize": {"type":"number","default":17,"minimum":10,"maximum":36,"description":"Compact Markdown font size in CSS pixels."},
+        "mobileReader.markdown.lineHeight": {"type":"number","default":1.7,"minimum":1.1,"maximum":2.5,"description":"Compact Markdown line-height multiplier."},
+        "mobileReader.markdown.paddingVertical": {"type":"number","default":16,"minimum":0,"maximum":64,"description":"Compact Markdown top/bottom padding in CSS pixels."},
+        "mobileReader.markdown.paddingHorizontal": {"type":"number","default":20,"minimum":0,"maximum":64,"description":"Compact Markdown left/right padding in CSS pixels."},
+        "mobileReader.gutter.lineNumberCharacters": {"type":"number","default":2,"minimum":1,"maximum":10,"description":"Minimum line-number character width in compact mode. Larger line numbers can still grow."},
+        "mobileReader.gutter.decorationWidth": {"type":"number","default":4,"minimum":0,"maximum":32,"description":"Compact decoration column width in CSS pixels."},
+        "mobileReader.gutter.glyphMargin": {"type":"boolean","default":false,"description":"Show breakpoint/other glyphs in the compact gutter."},
+        "mobileReader.gutter.folding": {"type":"boolean","default":false,"description":"Show code-folding controls in compact mode."},
+        "mobileReader.gutter.minimap": {"type":"boolean","default":false,"description":"Show the minimap in compact mode."},
+        "mobileReader.gestures.doubleTapInterval": {"type":"number","default":350,"minimum":150,"maximum":800,"description":"Maximum time in milliseconds between taps that enter editing."},
+        "mobileReader.gestures.doubleTapDistance": {"type":"number","default":24,"minimum":4,"maximum":64,"description":"Maximum distance in CSS pixels between taps that enter editing."},
+        "mobileReader.gestures.moveTolerance": {"type":"number","default":10,"minimum":2,"maximum":40,"description":"Movement above this distance cancels a reading tap. Native Monaco still owns touch scrolling."},
+        "mobileReader.gestures.longPressThreshold": {"type":"number","default":500,"minimum":200,"maximum":1500,"description":"Presses longer than this many milliseconds are not reading taps."},
+        "mobileReader.gestures.hoverDelay": {"type":["number","null"],"default":null,"minimum":0,"maximum":1500,"description":"Hover delay in milliseconds. Null waits until the double-tap interval ends; zero shows immediately."},
+        "mobileReader.gestures.keyboardThreshold": {"type":"number","default":120,"minimum":60,"maximum":300,"description":"Viewport occlusion in CSS pixels used to detect a software keyboard when native keyboard geometry events are unavailable."},
+        "mobileReader.toolbar.visibleActions": {"type":"number","default":2,"minimum":1,"maximum":8,"description":"Initial number of visible native editor actions. Swipe horizontally for more."},
+        "mobileReader.toolbar.buttonSize": {"type":"number","default":32,"minimum":24,"maximum":56,"description":"Compact editor action width and sidebar button width in CSS pixels."},
+        "mobileReader.toolbar.resizable": {"type":"boolean","default":true,"description":"Allow dragging the boundary between tabs and editor actions."},
+        "mobileReader.toolbar.maxWidthPercent": {"type":"number","default":65,"minimum":20,"maximum":85,"description":"Maximum percentage of an editor group's width usable by the action strip. At least 96px remains for tabs."},
+        "mobileReader.toolbar.order": {"type":"array","default":["hover","definition","symbols","edit","back"],"items":{"type":"string","enum":["hover","definition","symbols","edit","back"]},"uniqueItems":true,"description":"Order of reader actions in the native editor toolbar; omit an action to hide it. Native VS Code actions follow and remain available."}
+      }
+    }
+  }
+}
